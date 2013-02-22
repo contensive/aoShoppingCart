@@ -35,9 +35,6 @@ Public Function Execute(CsvObject As Object, mainObject As Object, optionString 
     curCharge = main.GetStreamNumber("shipCharge")
     shipCountry = main.GetStreamText("shipCountry")
     shipZip = main.GetStreamText("shipZip")
-    If Len(shipZip) > 5 Then
-        shipZip = Left(shipZip, 5)
-    End If
     Execute = GetShippingSelect(curName, curWeight, curCharge, shipZip, shipCountry)
     Exit Function
     
@@ -75,6 +72,9 @@ Private Function GetShippingSelect(CurrentName As String, orderShipWeight As Dou
     criteria = "(name<>'')and(name is not null)"
     If (LCase(orderShipCountry) = "united states") Or (LCase(orderShipCountry) = "us") Or (LCase(orderShipCountry) = "usa") Or (LCase(orderShipCountry) = "united states of america") Then
         orderIsDomestic = True
+        If Len(orderShipZip) > 5 Then
+            orderShipZip = Left(orderShipZip, 5)
+        End If
         criteria = criteria & "and(Domestic=1)"
     Else
         orderIsDomestic = False
