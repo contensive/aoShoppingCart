@@ -172,18 +172,18 @@ End Function
 '
 Public Function GetFormColumnHeader(Title As String, Optional Width As String) As String
     '
-    Dim copy As String
+    Dim Copy As String
     '
 '    If Title <> "" Then
 '        Copy = "<P class=""ccAdminSmall"" align=""center"">" & Title & "</p>"
 '    End If
     If Width = "" Then
-        copy = "<td align=""center"" valign=""bottom"" class=""ccPanel"">" & copy & "</td>"
+        Copy = "<td align=""center"" valign=""bottom"" class=""ccPanel"">" & Copy & "</td>"
     Else
-        copy = "<td align=""center"" valign=""bottom"" class=""ccPanel"" width=""" & Width & """>" & copy & "</td>"
+        Copy = "<td align=""center"" valign=""bottom"" class=""ccPanel"" width=""" & Width & """>" & Copy & "</td>"
     End If
     '
-    GetFormColumnHeader = copy
+    GetFormColumnHeader = Copy
     '
     End Function
 
@@ -199,12 +199,12 @@ Public Function GetFormFooterRow(FormInput As String, Caption As String) As Stri
     End Function
 
 
-Public Function GetFormColumnTotal(copy As String)
+Public Function GetFormColumnTotal(Copy As String)
     '
     GetFormColumnTotal = "" _
         & "<td align=""right"" class=""ccPanelRowOdd"">" & SpanClassAdminSmall _
         & "<img src=""/ccLib/images/black.gif"" width=""100%"" height=""1""><br>" _
-        & copy & "</SPAN></td>"
+        & Copy & "</SPAN></td>"
     '
     End Function
 

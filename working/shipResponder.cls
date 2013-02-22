@@ -33,13 +33,12 @@ Public Function Execute(CsvObject As Object, mainObject As Object, optionString 
     curName = main.GetStreamText("shipMethod")
     curWeight = main.GetStreamNumber("shipWeight")
     curCharge = main.GetStreamNumber("shipCharge")
-    shipZip = main.GetStreamText("shipZip")
     shipCountry = main.GetStreamText("shipCountry")
-    
-    stream = GetShippingSelect(curName, curWeight, curCharge, shipZip, shipCountry)
-    
-    Execute = stream
-    
+    shipZip = main.GetStreamText("shipZip")
+    If Len(shipZip) > 5 Then
+        shipZip = Left(shipZip, 5)
+    End If
+    Execute = GetShippingSelect(curName, curWeight, curCharge, shipZip, shipCountry)
     Exit Function
     
 ErrorTrap:
@@ -167,13 +166,14 @@ Private Function GetShippingSelect(CurrentName As String, orderShipWeight As Dou
     End If
     '
     If selectOptions = "" Then
-        If orderShipZip = "" Then
-            GetShippingSelect = "<p>No shipping options are available. Please update your zip or postal code.</p>"
-        ElseIf orderShipCountry = "" Then
-            GetShippingSelect = "<p>No shipping options are available. Please update your country.</p>"
-        Else
-            GetShippingSelect = "<p>No shipping options are available.</p>"
-        End If
+        GetShippingSelect = "<p>No shipping options are available. Please verify your shipping country and zip/postal code.</p>"
+        'If orderShipZip = "" Then
+        '    GetShippingSelect = "<p>No shipping options are available. Please verify your shipping country and postal code.</p>"
+        'ElseIf orderShipCountry = "" Then
+        '    GetShippingSelect = "<p>No shipping options are available. Please verify your shipping country and zip/postal code.</p>"
+        'Else
+        '    GetShippingSelect = "<p>No shipping options are available. Please verify your shipping country and zip/postal code.</p>"
+        'End If
     Else
         GetShippingSelect = "" _
             & "<select name=""orderShipMethod"">" _

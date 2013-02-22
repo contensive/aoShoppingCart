@@ -71,7 +71,7 @@ Public Function GetContent(optionString As String) As String
     On Error GoTo ErrorTrap
     '
     Dim s As String
-    Dim copy As String
+    Dim Copy As String
     Dim FormElement As String
     Dim Button As String
     Dim SaveAction As Boolean
@@ -151,14 +151,14 @@ Call AppendLogFile("IN")
             & "</tr>" _
             & "")
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthSmall, "CataloglistingColumns", FieldTypeInteger, SaveAction, "1")) _
+        Copy = (GetContent_GetPropertyElement(WidthSmall, "CataloglistingColumns", FieldTypeInteger, SaveAction, "1")) _
             & "<div class=""ssHelpText"">This is the number of columns displayed when many items are listed out, such as search results and when an entire category is selected.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Listing Columns", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Listing Columns", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogRecordSpan", FieldTypeInteger, SaveAction, "1")) _
+        Copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogRecordSpan", FieldTypeInteger, SaveAction, "1")) _
             & "<div class=""ssHelpText"">This is the number of items displayed per page, such as search results and when an entire category is selected.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Listing Items", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Listing Items", HelpCopy, False, False))
         '
         HelpCopy = ""
         If Not SaveAction Then
@@ -167,67 +167,67 @@ Call AppendLogFile("IN")
             FieldValue = main.GetStreamText("CatalogItemOrder")
             Call main.SetSiteProperty("CatalogItemOrder", FieldValue)
         End If
-        copy = main.GetFormInputSelect("CatalogItemOrder", FieldValue, "Sort Methods") _
+        Copy = main.GetFormInputSelect("CatalogItemOrder", FieldValue, "Sort Methods") _
             & "<div class=""ssHelpText"">How Items are sorted on the catalog.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Item Sort Order", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Item Sort Order", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowPricing", FieldTypeBoolean, SaveAction, True)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowPricing", FieldTypeBoolean, SaveAction, True)) _
             & "<div class=""ssHelpText"">When checked, pricing is displayed with an item in the catalog. Pricing is required to allow ordering.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow prices in catalog", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow prices in catalog", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowOrdering", FieldTypeBoolean, SaveAction, True)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowOrdering", FieldTypeBoolean, SaveAction, True)) _
             & "<div class=""ssHelpText"">When checked, items in the catalog can be added to a shopping cart and purchased through the order process. To only allow certain users to order from the catalog, see 'Group Policies' below.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow ordering for everyone", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow ordering for everyone", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasRetailPrice", FieldTypeText, SaveAction, "Retail Price")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasRetailPrice", FieldTypeText, SaveAction, "Retail Price")) _
             & "<div class=""ssHelpText"">For comparison pricing only. 'Retail Price', or 'MSRP'. Leave blank if not needed.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Retail price' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Retail price' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasRegularPrice", FieldTypeText, SaveAction, "Regular Price")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasRegularPrice", FieldTypeText, SaveAction, "Regular Price")) _
             & "<div class=""ssHelpText"">This is the normal price for the item. If there are no other sales or group discounts, this is what the customer will pay.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Regular price' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Regular price' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowSpecialPrice", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowSpecialPrice", FieldTypeBoolean, SaveAction, False)) _
             & "<div class=""ssHelpText"">When checked, items with a 'custom price' will display the custom pricing. Use the 'Custom Price' caption to label your pricing scheme, for example 'Member Price' or 'Seasonal Price'. See 'Group Policies' for an explaination of custom pricing.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow custom prices", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow custom prices", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasSpecialPrice", FieldTypeText, SaveAction, "Member Price")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasSpecialPrice", FieldTypeText, SaveAction, "Member Price")) _
             & "<div class=""ssHelpText"">When Allow custom prices is checked, this caption is used to identify the custom price. See 'Group Policies' for an explaination of custom pricing.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Custom price' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Custom price' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasSalesPrice", FieldTypeText, SaveAction, "Sale Price")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasSalesPrice", FieldTypeText, SaveAction, "Sale Price")) _
             & "<div class=""ssHelpText"">When an item includes a sale price, and is marked on sale, this is the caption that displays with the sale price.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Sale price' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Sale price' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasYourPrice", FieldTypeText, SaveAction, "Your Price")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAliasYourPrice", FieldTypeText, SaveAction, "Your Price")) _
             & "<div class=""ssHelpText"">The lowest possible price is calculated for each item, based on regular price, sales price and any Group Discounts. This caption is used to display that price.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Your price' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Your price' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogMfgPhrase", FieldTypeText, SaveAction, "Mfg by ")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogMfgPhrase", FieldTypeText, SaveAction, "Mfg by ")) _
             & "<div class=""ssHelpText"">When included, this caption proceeds the name of the source of this item, as selected for each item.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "'Manufactured by' caption", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "'Manufactured by' caption", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogThumbnailWidth", FieldTypeInteger, SaveAction, "100")) _
+        Copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogThumbnailWidth", FieldTypeInteger, SaveAction, "100")) _
             & "<div class=""ssHelpText"">This is the width of all thumbnail images displayed in the catalog.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Thumbnail Width", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Thumbnail Width", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogImageWidth", FieldTypeInteger, SaveAction, "100")) _
+        Copy = (GetContent_GetPropertyElement(WidthSmall, "CatalogImageWidth", FieldTypeInteger, SaveAction, "100")) _
             & "<div class=""ssHelpText"">This is the width of all images displayed in the catalog.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Image Width", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Image Width", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = "" _
+        Copy = "" _
             & GetContent_GetCopyElement("Catalog Home", shopCopyNameCatalogHome, shopCopyDefaultCatalogHome) _
             & GetContent_GetCopyElement("Search Tab: Home", shopCopyNameSearchHome, shopCopyDefaultSearchHome) _
             & GetContent_GetCopyElement("Account Tab: Edit Account", shopCopyNameAccountEdit, shopCopyDefaultAccountEdit) _
@@ -235,7 +235,7 @@ Call AppendLogFile("IN")
             & GetContent_GetCopyElement("Account Tab: Select Account (admin only)", shopCopyNameAccountSelectAccount, shopCopyDefaultAccountSelectAccount) _
             & GetContent_GetCopyElement("Account Tab: Add Account (admin only)", shopCopyNameAccountAddAccount, shopCopyDefaultAccountAddAccount) _
             & ""
-        Call content.Add(GetContent_GetHTMLElement(copy, "Catalog Text", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Catalog Text", HelpCopy, False, False))
         '
         ' Checkout
         '
@@ -245,14 +245,14 @@ Call AppendLogFile("IN")
             & "</div></td></tr>")
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "EMAILORDERFROMADDRESS", FieldTypeText, SaveAction, "")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "EMAILORDERFROMADDRESS", FieldTypeText, SaveAction, "")) _
             & "<div class=""ssHelpText"">This is the email address the appears as the 'From Address' on receipts sent to customers.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Email from-address for order receipt", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Email from-address for order receipt", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "EMAILORDERNOTIFYADDRESS", FieldTypeText, SaveAction, "")) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "EMAILORDERNOTIFYADDRESS", FieldTypeText, SaveAction, "")) _
             & "<div class=""ssHelpText"">This is the email address when the notification of the sale will be sent. This should be the administrator who ships the order.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Email notification to-address", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Email notification to-address", HelpCopy, False, False))
         ''
         'HelpCopy = "<div class=""ssHelpText"">" _
         '    & "<p>This feature controls how a customer's contact information is saved. Each user in the site has a people record. That people record has three sets of address information: contact, shipping and billing.</p>" _
@@ -268,18 +268,18 @@ Call AppendLogFile("IN")
         ' Free Shipping
         '
         HelpCopy = ""
-        copy = "" _
+        Copy = "" _
             & (GetContent_GetPropertyElement(WidthWide, "OrderAllowFreeShippingPrice", FieldTypeBoolean, SaveAction, False)) & "&nbsp;Allow Price Level Free Shipping" _
             & "<BR>" _
             & "<BR>" & (GetContent_GetPropertyElement(WidthWide, "OrderFreeShippingPrice", FieldTypeText, SaveAction, "")) & "&nbsp;Price Level" _
             & "<BR>" _
             & "<BR><div  class=""ssHelpText"">When allowed, orders over the Free Shipping Price Level will be given free shipping. The total price is before tax and shipping calculations, but includes all other discounts. Free shipping applies only to those shipping methods with 'Free Shipping at a Price Level' checked.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Price Level Free Shipping", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Price Level Free Shipping", HelpCopy, False, False))
         '
         ' Discount Price Level
         '
         HelpCopy = ""
-        copy = "" _
+        Copy = "" _
             & (GetContent_GetPropertyElement(WidthWide, "OrderAllowPriceLevelDiscount", FieldTypeBoolean, SaveAction, False)) & "&nbsp;Allow Price Level Discount" _
             & "<BR>" _
             & "<BR>" & (GetContent_GetPropertyElement(WidthWide, "OrderPriceLevelDiscountPrice", FieldTypeText, SaveAction, "")) & "&nbsp;Price Level" _
@@ -287,10 +287,10 @@ Call AppendLogFile("IN")
             & "<BR>" & (GetContent_GetPropertyElement(WidthWide, "OrderPriceLevelDiscountDiscount", FieldTypeText, SaveAction, "")) & "&nbsp;Discount Percentage" _
             & "<BR>" _
             & "<BR><div class=""ssHelpText"">When checked, orders over a specified price total will be given a discount. The total price is before tax and shipping calculations, but includes all other discounts. For example, for a 10% discount on orders over $200, enter 200 in Price Level and 10 in Discount Percentage.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Price Level Discount", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Price Level Discount", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = "" _
+        Copy = "" _
             & GetContent_GetCopyElement("Shopping Cart", shopCopyNameReview, shopCopyDefaultReview) _
             & GetContent_GetCopyElement("Shopping Cart: Empty", shopCopyNameReviewEmpty, shopCopyDefaultReviewEmpty) _
             & GetContent_GetCopyElement("Contact Page: Top", shopCopyNameContact, shopCopyDefaultContact) _
@@ -302,7 +302,7 @@ Call AppendLogFile("IN")
             & GetContent_GetCopyElement("Review Page: Top", shopCopyNamePurchase, shopCopyDefaultPurchase) _
             & GetContent_GetCopyElement("Receipt Page", shopCopyNameReceipt, shopCopyDefaultReceipt) _
             & ""
-        Call content.Add(GetContent_GetHTMLElement(copy, "Order Process Text", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Order Process Text", HelpCopy, False, False))
         '
         ' ----- Paypal payment Processing
         '
@@ -321,21 +321,21 @@ Call AppendLogFile("IN")
             '& ""
             '& "<li style=""margin:10px 0 0 0;"">On your PayPal seller account, set the Return URL. This is where the visitor will go when return after paying. From your PayPal account go to Profile - More Options - Seller Preferences - Website payment Preferences and set the Return URL to your URL.</li>" _
             '& "<li style=""margin:10px 0 0 0;"">On your PayPal seller account, set the Instant Payment Notification.This is a special webpage that Paypal will use to signal your website that the order is complete. Set it to 'http://(your website)/PayPalConfirm'.</li>"
-        copy = GetContent_GetPropertyElement(WidthWide, "OrderAllowPayPal", FieldTypeBoolean, SaveAction, False) _
+        Copy = GetContent_GetPropertyElement(WidthWide, "OrderAllowPayPal", FieldTypeBoolean, SaveAction, False) _
             & "<div class=""ssHelpText"">" & HelpCopy & "</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow payment by PayPal", "", False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow payment by PayPal", "", False, False))
         '
         HelpCopy = "When you create your PayPal seller account, this is the username they assign to you."
-        copy = GetContent_GetPropertyElement(WidthWide, "PayPalBusinessName", FieldTypeText, SaveAction, "PayPalBusinessName") _
+        Copy = GetContent_GetPropertyElement(WidthWide, "PayPalBusinessName", FieldTypeText, SaveAction, "PayPalBusinessName") _
             & "<div class=""ssHelpText"">" & HelpCopy & "</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "PayPal Business Name", "", False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "PayPal Business Name", "", False, False))
         '
         HelpCopy = "The PayPal Post URL below should be one of the following:" _
             & "<br>&nbsp;&nbsp;&nbsp;for testing - https://www.sandbox.paypal.com/cgi-bin/webscr" _
             & "<br>&nbsp;&nbsp;&nbsp;for production - https://www.paypal.com/cgi-bin/webscr</li>"
-        copy = GetContent_GetPropertyElement(WidthWide, "PayPalPostURL", FieldTypeText, SaveAction, "https://www.paypal.com/cgi-bin/webscr") _
+        Copy = GetContent_GetPropertyElement(WidthWide, "PayPalPostURL", FieldTypeText, SaveAction, "https://www.paypal.com/cgi-bin/webscr") _
             & "<div class=""ssHelpText"">" & HelpCopy & "</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "PayPal Post URL", "", False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "PayPal Post URL", "", False, False))
         '
         ' ----- payment
         '
@@ -347,82 +347,82 @@ Call AppendLogFile("IN")
             & "</div></td></tr>")
         '
         HelpCopy = ""
-        copy = GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCODCERTIFIEDFUNDS", FieldTypeBoolean, SaveAction, False) _
+        Copy = GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCODCERTIFIEDFUNDS", FieldTypeBoolean, SaveAction, False) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCODCertifiedFunds), "COD certified funds") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCODCertifiedFunds), "COD certified funds")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow COD certified funds payment", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow COD certified funds payment", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCODCOMPANYCHECK", FieldTypeBoolean, SaveAction, False) _
+        Copy = GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCODCOMPANYCHECK", FieldTypeBoolean, SaveAction, False) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCODCompanyCheck), "COD pre-approved payment") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCODCompanyCheck), "COD pre-approved payment")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow COD pre-approved payment", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow COD pre-approved payment", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCOMPANYCHECKS", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCOMPANYCHECKS", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCHECKCOMPANY), "Company Check") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCHECKCOMPANY), "Company Check")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow company check payment", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow company check payment", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDIT", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDIT", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCREDIT), "Credit") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCREDIT), "Credit")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow billing payment", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow billing payment", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWPERSONALCHECKS", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWPERSONALCHECKS", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCHECK), "Personal Check") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCHECK), "Personal Check")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow personal check payment", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow personal check payment", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDBYFAX", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDBYFAX", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCreditCardByFax), "Credit Card by Fax") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCreditCardByFax), "Credit Card by Fax")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow fax payment (credit card)", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow fax payment (credit card)", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDBYPHONE", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDBYPHONE", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCreditCardByPhone), "Credit Card by Phone") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCreditCardByPhone), "Credit Card by Phone")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow phone payment (credit card)", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow phone payment (credit card)", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDONLINE", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWCREDITCARDONLINE", FieldTypeBoolean, SaveAction, False)) _
             & GetContent_GetCopyElement("Payment Text", shopCopyNamePaymentDetailPrefix & PayString(PayTypeCreditCardOnline), "Credit Card Online") _
             & GetContent_GetCopyElement("Receipt Text", shopCopyNameReceptDetailPrefix & PayString(PayTypeCreditCardOnline), "Credit Card Online")
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow online payment (credit card)", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow online payment (credit card)", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWDISCOVER", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWDISCOVER", FieldTypeBoolean, SaveAction, False)) _
             & "<div class=""ssHelpText"">When Allow Online Payment is checked, this checkbox will cause the Discover icon to appear in the checkout form.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Credit card: Discover", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Credit card: Discover", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWMC", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWMC", FieldTypeBoolean, SaveAction, False)) _
             & "<div class=""ssHelpText"">When Allow Online Payment is checked, this checkbox will cause the MasterCard icon to appear in the checkout form.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Credit card: Master Card", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Credit card: Master Card", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWVISA", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWVISA", FieldTypeBoolean, SaveAction, False)) _
             & "<div class=""ssHelpText"">When Allow Online Payment is checked, this checkbox will cause the Visa icon to appear in the checkout form.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Credit card: Visa", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Credit card: Visa", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWAMEX", FieldTypeBoolean, SaveAction, False)) _
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ORDERALLOWAMEX", FieldTypeBoolean, SaveAction, False)) _
             & "<div class=""ssHelpText"">When Allow Online Payment is checked, this checkbox will cause the American Express icon to appear in the checkout form.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Credit card: American Express", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Credit card: American Express", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = GetContent_GetPropertyElement(WidthWide, "OrderSaveCreditCard", FieldTypeBoolean, SaveAction, False) _
+        Copy = GetContent_GetPropertyElement(WidthWide, "OrderSaveCreditCard", FieldTypeBoolean, SaveAction, False) _
             & "<div class=""ssHelpText"">When checked, the credit card will be saved in the order record. For security reasons, you should leave this blank unless you need to save the credit card number. For instance, if you choose not to process cards online, you should select this checkbox to save the whole credit card number for processing later.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Save credit card number in Db", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Save credit card number in Db", HelpCopy, False, False))
         '
         HelpCopy = "This field only applies to configurations with Online Credit Card processing enabled. Leave this field blank when taking orders online. Entering text here will let you successfully complete an order on your site using without processing a credit card."
-        copy = GetContent_GetPropertyElement(WidthWide, "OrderTestCCNumber", FieldTypeText, SaveAction, "") _
+        Copy = GetContent_GetPropertyElement(WidthWide, "OrderTestCCNumber", FieldTypeText, SaveAction, "") _
             & "<div class=""ssHelpText"">Enter a number sequence you will use to test your order process. When the credit card matches this number, the order will be completed without any online processing. Leave this blank to disable this feature.</div>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Testing Credit Card Number", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Testing Credit Card Number", HelpCopy, False, False))
         '
         ' ----- shipping
         '
@@ -433,8 +433,8 @@ Call AppendLogFile("IN")
             & "</div></td></tr>")
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "ShippingOriginatingZip", FieldTypeText, SaveAction, ""))
-        Call content.Add(GetContent_GetHTMLElement(copy, "From Zip", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "ShippingOriginatingZip", FieldTypeText, SaveAction, ""))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "From Zip", HelpCopy, False, False))
         '
         HelpCopy = ""
         If Not SaveAction Then
@@ -450,8 +450,8 @@ Call AppendLogFile("IN")
             FieldValue = main.GetStreamText("ShippingOriginatingCountry")
             Call main.SetSiteProperty("ShippingOriginatingCountry", FieldValue)
         End If
-        copy = main.GetFormInputSelect("ShippingOriginatingCountry", FieldValue, "Countries")
-        Call content.Add(GetContent_GetHTMLElement(copy, "From Country", HelpCopy, False, False))
+        Copy = main.GetFormInputSelect("ShippingOriginatingCountry", FieldValue, "Countries")
+        Call content.Add(GetContent_GetHTMLElement(Copy, "From Country", HelpCopy, False, False))
         '
         HelpCopy = ""
         If Not SaveAction Then
@@ -464,99 +464,102 @@ Call AppendLogFile("IN")
             FieldValue = main.GetStreamText("ShippingDropOff")
             Call main.SetSiteProperty("ShippingDropOff", FieldValue)
         End If
-        copy = main.GetFormInputSelectList("ShippingDropOff", FieldValue, "Regular Daily Pickup,On Call Air,One Time Pickup,Letter Center,Customer Counter")
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS DropOff/Pickup", HelpCopy, False, False))
+        Copy = main.GetFormInputSelectList("ShippingDropOff", FieldValue, "Regular Daily Pickup,On Call Air,One Time Pickup,Letter Center,Customer Counter")
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS DropOff/Pickup", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAirAM", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Next Day Air Early AM", HelpCopy, False, False))
+        Copy = ""
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAirAM", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Next Day Air Early AM", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAir", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Next Day Air", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAir", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Next Day Air", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAirSaver", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Next Day Air Saver", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSNextDatAirSaver", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Next Day Air Saver", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS2ndDayAirAM", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS 2nd Day Air AM", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS2ndDayAirAM", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS 2nd Day Air AM", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS2ndDayAir", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS 2nd Day Air", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS2ndDayAir", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS 2nd Day Air", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS3DaySelect", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS 3 Day Select", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPS3DaySelect", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS 3 Day Select", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSGround", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Ground", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSGround", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Ground", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCanadaStandard", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Canada Standard", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCanadaStandard", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Canada Standard", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpress", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Worldwide Express", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpress", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Worldwide Express", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpressPlus", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Worldwide Express Plus", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpressPlus", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Worldwide Express Plus", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpedited", FieldTypeBoolean, SaveAction, False))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Worldwide Expedited", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideExpedited", FieldTypeBoolean, SaveAction, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Worldwide Expedited", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideSaver", FieldTypeBoolean, SaveAction, ""))
-        Call content.Add(GetContent_GetHTMLElement(copy, "UPS Worldwide Saver", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "AllowUPSCWorldwideSaver", FieldTypeBoolean, SaveAction, ""))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "UPS Worldwide Saver", HelpCopy, False, False))
         '
         HelpCopy = ""
-        copy = ""
+        Copy = ""
         CCID = main.GetContentID("Order Ship Methods")
-        cs = main.OpenCSContent("Order Ship Methods")
+        cs = main.OpenCSContent("Order Ship Methods", "", "", False)
 Dim itemId As Long
 Dim itemName As String
 Dim itemDescription As String
         Do While main.IsCSOK(cs)
             itemId = main.GetCSInteger(cs, "ID")
             itemName = main.GetCSText(cs, "Name")
+            If Not main.GetCSBoolean(cs, "active") Then
+                itemName = "(inactive) " & itemName
+            End If
             itemDescription = main.GetCSText(cs, "Description")
-            copy = copy _
+            Copy = Copy _
                 & "<tr>" _
                 & "<td width=""20"" align=center><A href=""?cid=" & CCID & "&id=" & itemId & "&af=4""><img src=/cclib/images/IconContentEdit.gif border=0 alt=""Edit content"" valign=absmiddle></a></td>" _
                 & "<td width=""99%""align=left>" & itemName & "<br><img src=/cclib/images/spacer width=150 height=1></td>" _
                 & "</tr>"
             If (itemName <> itemDescription) And (itemDescription <> "") Then
-                copy = copy _
+                Copy = Copy _
                     & "<tr>" _
                     & "<td width=""20"">&nbsp;</td>" _
                     & "<td width=""99%""align=left>" & itemDescription & "</td>" _
                     & "</tr>"
             End If
-            copy = copy & "<tr><td colspan=""2""><hr></td></tr>"
+            Copy = Copy & "<tr><td colspan=""2""><hr></td></tr>"
             Call main.NextCSRecord(cs)
         Loop
         Call main.CloseCS(cs)
-        If copy = "" Then
-            copy = copy & "<tr><td width=100% align=left>There are no shipping methods defined</td></tr>"
+        If Copy = "" Then
+            Copy = Copy & "<tr><td width=100% align=left>There are no shipping methods defined</td></tr>"
         End If
-        copy = "" _
+        Copy = "" _
             & vbCrLf & vbTab & kmaStartTable(4, 0, 0) _
-            & kmaIndent(copy) _
+            & kmaIndent(Copy) _
             & vbCrLf & vbTab & "</table>" _
             & ""
-        copy = copy _
+        Copy = Copy _
             & vbCrLf & vbTab & kmaStartTable(4, 0, 0) _
             & vbCrLf & vbTab & "<tr><td width=100% align=left><a href=""?cid=" & CCID & "&af=4&aa=2&depth=1""><img src=/cclib/images/IconContentAdd.gif border=0></a>Add a new shipping method</td></tr>" _
             & vbCrLf & vbTab & "</table >" _
             & ""
-        Call content.Add(GetContent_GetHTMLElement(copy, "Other Shipping Methods", HelpCopy, False, False))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Other Shipping Methods", HelpCopy, False, False))
         '
         If main.SiteProperty_BuildVersion > "3.3.443" Then
             '
@@ -590,9 +593,9 @@ Dim fieldValueText As String
             If fieldValueText <> "" Then
                 fieldValueInt = main.GetRecordID("groups", fieldValueText)
             End If
-            copy = main.GetFormInputSelect(rnContactUpdateGroupId, fieldValueInt, "Groups", , "None") _
+            Copy = main.GetFormInputSelect(rnContactUpdateGroupId, fieldValueInt, "Groups", , "None") _
                 & "<div class=""ssHelpText"">If a group is selected, anyone logged in and in this group will not be able to update their contact information. Use this setting to protect user settings that may be controlled by another source such as a synchonization from another database.</div>"
-            Call content.Add(GetContent_GetHTMLElement(copy, "Block Contact Update Group", HelpCopy, False, False))
+            Call content.Add(GetContent_GetHTMLElement(Copy, "Block Contact Update Group", HelpCopy, False, False))
             '
             cs = main.OpenCSContent("Groups", , "ID,caption,Name", , , , "Caption,Name,AllowCommerceSpecialPrice,CommerceDiscount,AllowCommerceOrdering")
             'CS = Main.OpenCSContent("Groups", , "ID,caption,Name", , , , "Caption,Name,AllowCommerceSpecialPrice,CommerceDiscount,CommerceAdmin")
@@ -602,11 +605,11 @@ Dim fieldValueText As String
                 Do While main.IsCSOK(cs)
                     RecordID = main.GetCSInteger(cs, "ID")
                     RowName = "Group" & RecordID
-                    copy = main.GetCSText(cs, "Caption")
-                    If copy = "" Then
-                        copy = main.GetCSText(cs, "Name")
-                        If copy = "" Then
-                            copy = "Group " & RecordID
+                    Copy = main.GetCSText(cs, "Caption")
+                    If Copy = "" Then
+                        Copy = main.GetCSText(cs, "Name")
+                        If Copy = "" Then
+                            Copy = "Group " & RecordID
                         End If
                     End If
                     If SaveAction Then
@@ -640,7 +643,7 @@ Dim fieldValueText As String
                     '    & ",&nbsp;&nbsp;" & Main.GetFormInputCheckBox(RowName & "Price", AllowCommerceSpecialPrice) & "Allow&nbsp;Custom&nbsp;Price" _
                     '    & ",&nbsp;&nbsp;Discount&nbsp;" & Main.GetFormInputText(RowName & "Discount", CommerceDiscount, 1, 5) & "%" _
                     '    & Main.GetFormInputHidden(RowName, RecordID)
-                    Call content.Add(GetContent_GetHTMLElement(FormElement, copy))
+                    Call content.Add(GetContent_GetHTMLElement(FormElement, Copy))
                     RowCnt = RowCnt + 1
                     main.NextCSRecord (cs)
                 Loop
@@ -658,8 +661,8 @@ Dim fieldValueText As String
             & "</div></td></tr>")
         '
         HelpCopy = ""
-        copy = "<a href=""?cid=" & main.GetContentID("states") & """>Edit States</a>"
-        Call content.Add(GetContent_GetHTMLElement(copy, "Edit State Tax Rates", HelpCopy, False, False))
+        Copy = "<a href=""?cid=" & main.GetContentID("states") & """>Edit States</a>"
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Edit State Tax Rates", HelpCopy, False, False))
         '
         ' ----- Inventory Management Properties
         '
@@ -670,12 +673,12 @@ Dim fieldValueText As String
             & "</div></td></tr>")
         '
         HelpCopy = "Enable inventory management. When disabled, no inventory checks will be made."
-        copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowInventory", FieldTypeBoolean, SaveAction, "false"))
-        Call content.Add(GetContent_GetHTMLElement(copy, "Allow Inventory Management", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "CatalogAllowInventory", FieldTypeBoolean, SaveAction, "false"))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Allow Inventory Management", HelpCopy, False, False))
         '
         HelpCopy = "The email address where the low inventory notifications will be sent. The Email will be from the system's 'General Email From Address', in the Email Control screen"
-        copy = (GetContent_GetPropertyElement(WidthWide, "EmailCatalogInventoryAdmin", FieldTypeText, SaveAction, ""))
-        Call content.Add(GetContent_GetHTMLElement(copy, "Inventory Notification Email", HelpCopy, False, False))
+        Copy = (GetContent_GetPropertyElement(WidthWide, "EmailCatalogInventoryAdmin", FieldTypeText, SaveAction, ""))
+        Call content.Add(GetContent_GetHTMLElement(Copy, "Inventory Notification Email", HelpCopy, False, False))
         '
         ' end of settings
         '
@@ -705,15 +708,15 @@ Private Function GetContent_GetHTMLElement(HTMLFieldString As String, Caption As
     On Error GoTo ErrorTrap
     '
     Dim FastString As FastString.FastStringClass
-    Dim copy As String
+    Dim Copy As String
     '
     Set FastString = New FastStringClass
     Call FastString.Add("<tr>")
-    copy = Caption
-    If copy = "" Then
-        copy = "&nbsp;"
+    Copy = Caption
+    If Copy = "" Then
+        Copy = "&nbsp;"
     End If
-    FastString.Add ("<td class=ccAdminEditCaption style=""vertical-align:top;"">" & copy)
+    FastString.Add ("<td class=ccAdminEditCaption style=""vertical-align:top;"">" & Copy)
     If main.VisitProperty_AllowHelpIcon Then
         If HelpMessage <> "" Then
             FastString.Add "&nbsp;" & main.GetHelpLink(0, Caption, HelpMessage)
@@ -723,11 +726,11 @@ Private Function GetContent_GetHTMLElement(HTMLFieldString As String, Caption As
     End If
     FastString.Add ("<img src=/ccLib/Images/spacer.gif width=1 height=15></td>")
     '
-    copy = HTMLFieldString
-    If copy = "" Then
-        copy = "&nbsp;"
+    Copy = HTMLFieldString
+    If Copy = "" Then
+        Copy = "&nbsp;"
     End If
-    Call FastString.Add("<td class=ccAdminEditField colspan=2 style=""padding-left:20px;"">" & copy & "</td>")
+    Call FastString.Add("<td class=ccAdminEditField colspan=2 style=""padding-left:20px;"">" & Copy & "</td>")
     Call FastString.Add("</tr>")
     GetContent_GetHTMLElement = FastString.Text
     Set FastString = Nothing
@@ -740,7 +743,7 @@ ErrorTrap:
 '
 '
 '
-Private Function GetContent_GetPropertyElement(Width As Long, Name As String, fieldType As Long, ProcessRequest As Boolean, defaultValue As String) As String
+Private Function GetContent_GetPropertyElement(Width As Long, Name As String, fieldType As Long, ProcessRequest As Boolean, DefaultValue As String) As String
     On Error GoTo ErrorTrap
     '
     Dim CurrentValue As String
@@ -749,7 +752,7 @@ Private Function GetContent_GetPropertyElement(Width As Long, Name As String, fi
         CurrentValue = main.GetStreamText(Name)
         Call main.SetSiteProperty(Name, CurrentValue)
     Else
-        CurrentValue = main.GetSiteProperty(Name, defaultValue)
+        CurrentValue = main.GetSiteProperty(Name, DefaultValue)
         End If
     Select Case fieldType
         Case FieldTypeBoolean
@@ -773,19 +776,19 @@ Private Function GetContent_GetCopyElement(Caption As String, CopyName As String
     Dim cs As Long
     Dim RecordID As Long
     Dim EditIcon As String
-    Dim copy As String
+    Dim Copy As String
     '
     Const ContentName = "Copy Content"
     '
     cs = main.OpenCSContent(ContentName, "Name=" & KmaEncodeSQLText(CopyName))
     If main.IsCSOK(cs) Then
         RecordID = main.GetCSInteger(cs, "ID")
-        copy = main.GetCSText(cs, "copy")
+        Copy = main.GetCSText(cs, "copy")
     End If
     Call main.CloseCS(cs)
     '
     If RecordID = 0 Then
-        copy = defaultCopy
+        Copy = defaultCopy
         cs = main.InsertCSRecord(ContentName)
         If main.IsCSOK(cs) Then
             RecordID = main.GetCSInteger(cs, "ID")
@@ -800,8 +803,8 @@ Private Function GetContent_GetCopyElement(Caption As String, CopyName As String
     Else
         EditIcon = "<A href=""?cid=" & main.GetContentID(ContentName) & "&af=4&aa=2&depth=1&wc=" & kmaEncodeURL("name=" & CopyName) & """><img src=/cclib/images/IconContentEdit.gif border=0 alt=""Edit content"" valign=absmiddle></a>"
     End If
-    If copy = "" Then
-        copy = "&nbsp;"
+    If Copy = "" Then
+        Copy = "&nbsp;"
     End If
 '    '
 '    GetContent_GetCopyElement = "" _
@@ -813,7 +816,7 @@ Private Function GetContent_GetCopyElement(Caption As String, CopyName As String
     GetContent_GetCopyElement = "" _
         & vbCrLf & vbTab & "<div class=""ssEditIcon"">" & EditIcon & "</div>" _
         & vbCrLf & vbTab & "<div class=""ssEditCaption"">" & Caption & "</div>" _
-        & vbCrLf & vbTab & "<div class=""ssEditValue"">" & copy & "</div>" _
+        & vbCrLf & vbTab & "<div class=""ssEditValue"">" & Copy & "</div>" _
         & ""
     GetContent_GetCopyElement = "" _
         & vbCrLf & vbTab & "<div class=""ssEditRow"">" _
