@@ -291,7 +291,7 @@ Private Function processCheckoutForm(srcShopFormId As Long) As Long
     Dim OrderCCExpiresYear As Long
     Dim CompletedOrdersCID As Long
     Dim OrderProcessedOK As Boolean
-    Dim copy As String
+    Dim Copy As String
     Dim CSShipMethods As Long
     Dim ItemCount As Long
     Dim TempMessage As String
@@ -583,7 +583,7 @@ Private Function processCheckoutForm(srcShopFormId As Long) As Long
     Dim billName As String
     Dim billFirstName As String
     Dim billLastName As String
-    Dim pos As Long
+    Dim Pos As Long
                                         
                                         csOrder = main.OpenCSContentRecord("Orders", orderId)
                                         If main.IsCSOK(csOrder) Then
@@ -598,10 +598,10 @@ Private Function processCheckoutForm(srcShopFormId As Long) As Long
                                                 billLastName = main.GetCSText(csOrder, "LastName")
                                             Else
                                                 billFirstName = billName
-                                                pos = InStr(1, billFirstName, " ")
-                                                If (pos > 0) And (pos < Len(billFirstName)) Then
-                                                    billLastName = Mid(billFirstName, pos + 1)
-                                                    billFirstName = Mid(billFirstName, 1, pos - 1)
+                                                Pos = InStr(1, billFirstName, " ")
+                                                If (Pos > 0) And (Pos < Len(billFirstName)) Then
+                                                    billLastName = Mid(billFirstName, Pos + 1)
+                                                    billFirstName = Mid(billFirstName, 1, Pos - 1)
                                                 End If
                                             End If
                                             optionString = optionString & "&custFirstName=" & encodeNvaArgument(billFirstName)
@@ -627,11 +627,11 @@ Private Function processCheckoutForm(srcShopFormId As Long) As Long
                                             '
                                             ' shipping info
                                             '
-                                            pos = InStr(1, firstName, " ")
+                                            Pos = InStr(1, firstName, " ")
                                             firstName = Trim(main.GetCSText(csOrder, "shipname"))
-                                            If (pos <> 0) Then
-                                                lastName = Mid(firstName, pos + 1)
-                                                firstName = Mid(firstName, 1, pos)
+                                            If (Pos <> 0) Then
+                                                lastName = Mid(firstName, Pos + 1)
+                                                firstName = Mid(firstName, 1, Pos)
                                             End If
                                             addressLine = main.GetCSText(csOrder, "shipAddress")
                                             If isSupportedAddress2 Then
@@ -815,7 +815,7 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
     Dim checkCreateKey As Long
     Dim SQL As String
     Dim dstShopFormId As Long
-    Dim pos As Long
+    Dim Pos As Long
     Dim firstName As String
     Dim lastName As String
     Dim allowSaveCredentials As Boolean
@@ -823,7 +823,7 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
     Dim AccountUsernameErrorCode As Long
     Dim CompletedOrdersCID As Long
     Dim OrderProcessedOK As Boolean
-    Dim copy As String
+    Dim Copy As String
     Dim CSShipMethods As Long
     Dim ItemCount As Long
     Dim TempMessage As String
@@ -922,7 +922,6 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
                         Or ("" = orderContactName) _
                         Or ("" = orderContactAddress) _
                         Or ("" = orderContactCity) _
-                        Or ("" = orderContactZip) _
                         Or ("" = orderContactPhone) Then
                         main.AddUserError "One or more of the required contact fields were blank."
                     End If
@@ -975,7 +974,6 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
                         Or ("" = orderBillName) _
                         Or ("" = orderBillAddress) _
                         Or ("" = orderBillCity) _
-                        Or ("" = orderBillZip) _
                         Or ("" = orderBillPhone) Then
                         main.AddUserError "One or more of the required billing fields were blank."
                     End If
@@ -1030,7 +1028,6 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
                         If ("" = orderShipName) _
                             Or ("" = orderShipAddress) _
                             Or ("" = orderShipCity) _
-                            Or ("" = orderShipZip) _
                             Or ("" = orderShipPhone) Then
                             main.AddUserError "One or more of the required shipping fields were blank."
                         End If
@@ -1272,10 +1269,10 @@ Private Function processCheckout_ShippingBilling(shopButton As String, ignore_Up
                         '
                         orderContactName = Trim(orderContactName)
                         If orderContactName <> "" Then
-                            pos = InStr(1, orderContactName, " ")
-                            If pos > 0 Then
-                                firstName = Mid(orderContactName, 1, pos - 1)
-                                lastName = Mid(orderContactName, pos + 1)
+                            Pos = InStr(1, orderContactName, " ")
+                            If Pos > 0 Then
+                                firstName = Mid(orderContactName, 1, Pos - 1)
+                                lastName = Mid(orderContactName, Pos + 1)
                                 Call main.SetCS(cs, "firstName", firstName)
                                 Call main.SetCS(cs, "lastName", lastName)
                             End If
@@ -1583,7 +1580,7 @@ Public Sub AddItem(itemId As Long)
     Dim ItemCID As Long
     Dim OrderDetailsID As Long
     Dim csOrder As Long
-    Dim copy As String
+    Dim Copy As String
     Dim CatalogAllowSpecialPrice As Boolean
     Dim csSource As Long
     Dim Pricing As New CmrcPricingClass
@@ -2109,7 +2106,7 @@ Private Function getCheckoutForm_Review(allowOrdering As Boolean) As String
     Dim CatalogAllowSpecialPrice As Boolean
     Dim CatalogAliasSpecialPrice As String
     Dim IsAdminWithBadMemberID As Boolean
-    Dim copy As String
+    Dim Copy As String
     '
     ' this is a hassle
     IsAdminWithBadMemberID = False
@@ -2130,8 +2127,8 @@ Private Function getCheckoutForm_Review(allowOrdering As Boolean) As String
         stream.Add DivBR
     Else
         stream.Add DivBR
-        copy = GetCommerceCopy(shopCopyNameReview, shopCopyDefaultReview)
-        stream.Add copy
+        Copy = GetCommerceCopy(shopCopyNameReview, shopCopyDefaultReview)
+        stream.Add Copy
         stream.Add DivBR
     End If
     '
@@ -2407,7 +2404,7 @@ Private Function getCheckoutForm_ShippingBilling() As String
     Dim BillCountrySelectOptions As String
     Dim CountryStateList As String
     Dim CurrentCountryID As Long
-    Dim countryId As Long
+    Dim CountryID As Long
     Dim countryName As String
     Dim StateID As Long
     Dim StateName As String
@@ -2969,7 +2966,7 @@ End Function
 '
 '
 '
-Private Function getCheckoutForm_ShippingBilling_Row(Label As String, ByVal element As String, IsRequired As Boolean, IsError As Boolean, Optional addReadOnlyWrapper As Boolean) As String
+Private Function getCheckoutForm_ShippingBilling_Row(Label As String, ByVal Element As String, IsRequired As Boolean, IsError As Boolean, Optional addReadOnlyWrapper As Boolean) As String
     Dim StyleField As String
     Dim StyleCaption As String
     '
@@ -2982,7 +2979,7 @@ Private Function getCheckoutForm_ShippingBilling_Row(Label As String, ByVal elem
         StyleCaption = " class=""coInputCaption"""
     End If
     If addReadOnlyWrapper Then
-        element = "<div class=""coInputFieldReadOnly"" unselectable=""on"">" & element & "&nbsp;</div>"
+        Element = "<div class=""coInputFieldReadOnly"" unselectable=""on"">" & Element & "&nbsp;</div>"
     End If
     If IsRequired Then
         Label = "*&nbsp;" & Label
@@ -2991,7 +2988,7 @@ Private Function getCheckoutForm_ShippingBilling_Row(Label As String, ByVal elem
         & "<tr><td colspan=2 style=""height:1px;""></td></tr>" _
         & "<tr>" _
         & "<td " & StyleCaption & ">" & Label & "</td>" _
-        & "<td " & StyleField & ">" & element & "</SPAN></td>" _
+        & "<td " & StyleField & ">" & Element & "</SPAN></td>" _
         & "</tr>"
 End Function
 '
@@ -3087,7 +3084,7 @@ ErrorTrap:
 Private Function getCheckoutForm_Purchase(allowOrdering As Boolean) As String
     On Error GoTo ErrorTrap
     '
-    Dim copy As String
+    Dim Copy As String
     Dim addressLine As String
     Dim echoString As String
     Dim ItemPointer As Long
@@ -3242,9 +3239,9 @@ Private Function getCheckoutForm_Purchase(allowOrdering As Boolean) As String
             stream.Add (getCheckoutForm_Billing_PayPalButton)
             stream.Add ("</td></tr>")
         Else
-            copy = shopCopyNamePaymentDetailPrefix & OrderPayMethod
-            copy = main.GetContentCopy2(copy, "copy content", OrderPayMethod)
-            stream.Add copy
+            Copy = shopCopyNamePaymentDetailPrefix & OrderPayMethod
+            Copy = main.GetContentCopy2(Copy, "copy content", OrderPayMethod)
+            stream.Add Copy
         End If
     Else
         '
@@ -3572,19 +3569,19 @@ ErrorTrap:
 '
 '
 '
-Private Function GetEditFormRow(SubheadRow As Boolean, Caption As String, ByVal element As String, Optional addReadOnlyWrapper As Boolean) As String
+Private Function GetEditFormRow(SubheadRow As Boolean, Caption As String, ByVal Element As String, Optional addReadOnlyWrapper As Boolean) As String
     On Error GoTo ErrorTrap
     '
     If SubheadRow Then
         GetEditFormRow = "<tr><td colspan=""2"" align=""Left"" class=ccCatRowHeader>" & Caption & "</td></tr>"
     Else
         If addReadOnlyWrapper Then
-            element = "<div class=""coInputFieldReadOnly"" unselectable=""on"">" & element & "&nbsp;</div>"
+            Element = "<div class=""coInputFieldReadOnly"" unselectable=""on"">" & Element & "&nbsp;</div>"
         End If
         GetEditFormRow = "" _
             & "<tr>" _
             & "<td class=""coInputCaption""><nobr>" & Caption & "</nobr></td>" _
-            & "<td class=""coInputField"">" & element & "</td>" _
+            & "<td class=""coInputField"">" & Element & "</td>" _
             & "</tr>"
         End If
     '
@@ -3599,17 +3596,17 @@ ErrorTrap:
 Private Function GetEditFormRowCS(CSPointer As Long, FieldName As String, Optional fieldType As Integer) As String
     On Error GoTo ErrorTrap
     '
-    Dim copy As String
+    Dim Copy As String
     Dim number As Double
     '
     Select Case fieldType
         Case FieldTypeCurrency
-            copy = "$&nbsp;" & FormatNumber(main.GetCSNumber(CSPointer, FieldName), 2)
+            Copy = "$&nbsp;" & FormatNumber(main.GetCSNumber(CSPointer, FieldName), 2)
         Case Else
-            copy = main.GetCSText(CSPointer, FieldName)
+            Copy = main.GetCSText(CSPointer, FieldName)
     End Select
-    copy = "<div class=""coInputFieldReadOnly "">" & copy & "&nbsp;</div>"
-    GetEditFormRowCS = GetEditFormRow(False, main.GetCSFieldCaption(CSPointer, FieldName), copy)
+    Copy = "<div class=""coInputFieldReadOnly "">" & Copy & "&nbsp;</div>"
+    GetEditFormRowCS = GetEditFormRow(False, main.GetCSFieldCaption(CSPointer, FieldName), Copy)
     '
     Exit Function
 ErrorTrap:
@@ -3732,9 +3729,9 @@ Private Function GetCommerceCopy(PageName As String, defaultCopy As String)
     '
     'Dim CS As Long
     'Dim RecordID As Long
-    Dim copy As New CmrcCopyClass
+    Dim Copy As New CmrcCopyClass
     '
-    GetCommerceCopy = copy.GetCopy(main, PageName, defaultCopy)
+    GetCommerceCopy = Copy.GetCopy(main, PageName, defaultCopy)
     Exit Function
     '
     ' ----- Error Trap
@@ -3970,7 +3967,7 @@ Private Function getCheckoutForm_ItemOrderForm(IncludeTotals As Boolean, AllowCh
     Dim s As New FastStringClass
     Dim ItemPtr As Long
     Dim SubTotal As Double
-    Dim copy As String
+    Dim Copy As String
     Dim Style As String
     Dim StyleRight As String
     Dim StyleLeft As String
@@ -4098,15 +4095,15 @@ Dim OptionName As String
             ' Shipping
             '
             If orderShipCharge > 0 Then
-                copy = FormatCurrency(orderShipCharge)
+                Copy = FormatCurrency(orderShipCharge)
             Else
-                copy = "FREE"
+                Copy = "FREE"
             End If
             Style = "color:black;background-color:white;border-bottom:1px solid #a0a0a0;padding-left:5px;padding-right:5px;padding-top:10px;"
             s.Add ("<tr>" _
                 & "<td style=""color:black;background-color:white;padding-left:5px;padding-right:5px;padding-top:10px;"" colspan=2>&nbsp;</td>" _
                 & "<td style=""color:black;background-color:white;padding-top:10px;"" align=""right"">" & scSpanNormalStyle & "<B>Shipping</B>&nbsp;</SPAN></td>" _
-                & "<td width=70 align=right style=""" & Style & """>" & scSpanNormalStyle & copy & "</SPAN></td>" _
+                & "<td width=70 align=right style=""" & Style & """>" & scSpanNormalStyle & Copy & "</SPAN></td>" _
                 & "</tr>")
             '
             ' total
@@ -4136,7 +4133,7 @@ End Function
 '
 '
 '
-Private Function GetFormColumn(copy As String, Align As String, RowCount As Long) As String
+Private Function GetFormColumn(Copy As String, Align As String, RowCount As Long) As String
     '
     Dim iAlign As String
     Dim Style As String
@@ -4147,7 +4144,7 @@ Private Function GetFormColumn(copy As String, Align As String, RowCount As Long
         Style = "ccCatRowOdd"
     End If
     '
-    GetFormColumn = "<td valign=""top"" align=""" & Align & """ class=""" & Style & """>" & SpanClassAdminSmall & copy & "</SPAN></td>"
+    GetFormColumn = "<td valign=""top"" align=""" & Align & """ class=""" & Style & """>" & SpanClassAdminSmall & Copy & "</SPAN></td>"
     End Function
 ''
 ''
@@ -4367,7 +4364,7 @@ Public Function GetAccountForm() As String
     Dim dateExpires As Date
     Dim groupName
     Dim stream As New FastStringClass
-    Dim copy
+    Dim Copy
     Dim ItemCount As Long
     Dim TempMessage As String
     Dim RedirectPage As String
@@ -4380,7 +4377,7 @@ Public Function GetAccountForm() As String
     Dim blockContactGroup As String
     Dim contactEmail As String
     Dim contactUsername As String
-    Dim countryId As Long
+    Dim CountryID As Long
     Dim countryName As String
     Dim common As New commonClass
     '
@@ -4472,8 +4469,8 @@ Public Function GetAccountForm() As String
                                 firstName = main.GetStreamText("MemberFirstName")
                                 lastName = main.GetStreamText("MemberLastName")
                                 If Not blockContactSave Then
-                                    countryId = main.GetStreamInteger("MemberCountry")
-                                    countryName = main.GetRecordName("countries", countryId)
+                                    CountryID = main.GetStreamInteger("MemberCountry")
+                                    countryName = main.GetRecordName("countries", CountryID)
                                     Call main.SetCS(cs, "FirstName", firstName)
                                     Call main.SetCS(cs, "LastName", lastName)
                                     Call main.SetCS(cs, "Name", Trim(firstName & " " & lastName))
@@ -4491,8 +4488,8 @@ Public Function GetAccountForm() As String
                                 '
                                 ' billing
                                 '
-                                countryId = main.GetStreamInteger("MemberBillCountry")
-                                countryName = main.GetRecordName("countries", countryId)
+                                CountryID = main.GetStreamInteger("MemberBillCountry")
+                                countryName = main.GetRecordName("countries", CountryID)
                                 Call main.SetCS(cs, "BillName", main.GetStreamText("MemberBillName"))
                                 Call main.SetCS(cs, "BillEmail", main.GetStreamText("MemberBillEmail"))
                                 Call main.SetCS(cs, "BillPhone", main.GetStreamText("MemberBillPhone"))
@@ -4506,8 +4503,8 @@ Public Function GetAccountForm() As String
                                 '
                                 ' shipping
                                 '
-                                countryId = main.GetStreamInteger("MemberShipCountry")
-                                countryName = main.GetRecordName("countries", countryId)
+                                CountryID = main.GetStreamInteger("MemberShipCountry")
+                                countryName = main.GetRecordName("countries", CountryID)
                                 Call main.SetCS(cs, "ShipName", main.GetStreamText("MemberShipName"))
                                 Call main.SetCS(cs, "ShipCompany", main.GetStreamText("MemberShipCompany"))
                                 Call main.SetCS(cs, "ShipAddress", main.GetStreamText("MemberShipAddress"))
@@ -4655,11 +4652,11 @@ Private Function getAccountForm_Edit(accountUserId As Long) As String
     On Error GoTo ErrorTrap
     '
     Dim countryName As String
-    Dim countryId As Long
+    Dim CountryID As Long
     Dim RowCnt As Long
     Dim GroupID As Long
     Dim RowName As String
-    Dim copy As String
+    Dim Copy As String
     Dim AllowCommerceSpecialPrice As Boolean
     Dim CommerceDiscount As Double
     Dim FormElement As String
@@ -4762,11 +4759,11 @@ Private Function getAccountForm_Edit(accountUserId As Long) As String
         Call stream.Add(GetEditFormRow(True, "Account Contact", ""))
         countryName = main.GetCSText(CSPeople, "Country")
         If countryName <> "" Then
-            countryId = main.GetRecordID("countries", countryName)
+            CountryID = main.GetRecordID("countries", countryName)
         End If
-        If countryId = 0 Then
+        If CountryID = 0 Then
             countryName = "United States"
-            countryId = countryUsaId
+            CountryID = countryUsaId
         End If
         '
         If blockContactSave Then
@@ -4798,18 +4795,18 @@ Private Function getAccountForm_Edit(accountUserId As Long) As String
             Call stream.Add(GetEditFormRow(False, "City", main.GetFormInputText("MemberCity", main.GetCSText(CSPeople, "City"))))
             Call stream.Add(GetEditFormRow(False, "State", main.GetFormInputText("MemberState", main.GetCSText(CSPeople, "State"))))
             Call stream.Add(GetEditFormRow(False, "Postal Code", main.GetFormInputText("MemberZip", main.GetCSText(CSPeople, "Zip"))))
-            Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberCountry", countryId, "Countries")))
+            Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberCountry", CountryID, "Countries")))
         End If
         '
         Call stream.Add(GetEditFormRow(True, "Billing Contact", ""))
         '
         countryName = main.GetCSText(CSPeople, "BillCountry")
         If countryName <> "" Then
-            countryId = main.GetRecordID("countries", countryName)
+            CountryID = main.GetRecordID("countries", countryName)
         End If
-        If countryId = 0 Then
+        If CountryID = 0 Then
             countryName = "United States"
-            countryId = countryUsaId
+            CountryID = countryUsaId
         End If
         Call stream.Add(GetEditFormRow(False, "Name", main.GetFormInputText("MemberBillName", main.GetCSText(CSPeople, "BillName"))))
         Call stream.Add(GetEditFormRow(False, "Email", main.GetFormInputText("MemberBillEmail", main.GetCSText(CSPeople, "BillEmail"))))
@@ -4823,15 +4820,15 @@ Private Function getAccountForm_Edit(accountUserId As Long) As String
         Call stream.Add(GetEditFormRow(False, "City", main.GetFormInputText("MemberBillCity", main.GetCSText(CSPeople, "BillCity"))))
         Call stream.Add(GetEditFormRow(False, "State", main.GetFormInputText("MemberBillState", main.GetCSText(CSPeople, "BillState"))))
         Call stream.Add(GetEditFormRow(False, "Postal Code", main.GetFormInputText("MemberBillZip", main.GetCSText(CSPeople, "BillZip"))))
-        Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberBillCountry", countryId, "Countries")))
+        Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberBillCountry", CountryID, "Countries")))
         '
         Call stream.Add(GetEditFormRow(True, "Shipping Contact", ""))
         '
         countryName = main.GetCSText(CSPeople, "ShipCountry")
-        countryId = main.GetRecordID("countries", countryName)
-        If countryId = 0 Then
+        CountryID = main.GetRecordID("countries", countryName)
+        If CountryID = 0 Then
             countryName = "United States"
-            countryId = countryUsaId
+            CountryID = countryUsaId
         End If
         Call stream.Add(GetEditFormRow(False, "Name", main.GetFormInputText("MemberShipName", main.GetCSText(CSPeople, "ShipName"))))
         Call stream.Add(GetEditFormRow(False, "Phone", main.GetFormInputText("MemberShipPhone", main.GetCSText(CSPeople, "ShipPhone"))))
@@ -4843,7 +4840,7 @@ Private Function getAccountForm_Edit(accountUserId As Long) As String
         Call stream.Add(GetEditFormRow(False, "City", main.GetFormInputText("MemberShipCity", main.GetCSText(CSPeople, "ShipCity"))))
         Call stream.Add(GetEditFormRow(False, "State", main.GetFormInputText("MemberShipState", main.GetCSText(CSPeople, "ShipState"))))
         Call stream.Add(GetEditFormRow(False, "Postal Code", main.GetFormInputText("MemberShipZip", main.GetCSText(CSPeople, "ShipZip"))))
-        Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberShipCountry", countryId, "Countries")))
+        Call stream.Add(GetEditFormRow(False, "Country", main.GetFormInputSelect("MemberShipCountry", CountryID, "Countries")))
         'Call stream.Add(GetEditFormRow(True, "", ""))
 '        '
 '        ' Group Policies
@@ -5495,7 +5492,7 @@ End Function
 Private Function getCheckoutForm_Billing_PayPalForm(mainobj As Object, ByVal echoString As String, ByVal amount As String, payPalItemName As String) As String
     On Error GoTo ErrorTrap
     '
-    Dim pos As Long
+    Dim Pos As Long
     Dim o As String
     Dim thankYouPageLink As String
     Dim paymentConfirmLink As String
@@ -5507,9 +5504,9 @@ Private Function getCheckoutForm_Billing_PayPalForm(mainobj As Object, ByVal ech
     '
     RQS = mainobj.RefreshQueryString
     ServerLink = mainobj.ServerLink
-    pos = InStr(1, ServerLink, "?")
-    If pos > 0 Then
-        ServerLink = Left(ServerLink, pos - 1)
+    Pos = InStr(1, ServerLink, "?")
+    If Pos > 0 Then
+        ServerLink = Left(ServerLink, Pos - 1)
     End If
     '
     qs = ModifyQueryString(RQS, rnSrcShopFormId, shopFormCheckoutReceipt, True)
@@ -5577,14 +5574,14 @@ Private Function getCountrySelect(main As Object, currentCountry As String, html
     Dim o As String
     Dim Name As String
     Dim lcaseCurrentCountry As String
-    Dim countryId As Long
+    Dim CountryID As Long
     '
     If currentCountry <> "" Then
-        countryId = main.GetRecordID("countries", currentCountry)
+        CountryID = main.GetRecordID("countries", currentCountry)
     End If
-    If countryId = 0 Then
+    If CountryID = 0 Then
         currentCountry = "United States"
-        countryId = main.GetRecordID("countries", "United States")
+        CountryID = main.GetRecordID("countries", "United States")
     End If
     '
     lcaseCurrentCountry = LCase(currentCountry)
@@ -5660,7 +5657,7 @@ Private Function getCommonForm_Login(srcForm As Long, dstForm As Long) As String
     Dim newAccountForm As String
     Dim loginForm As String
     Dim loginAction As String
-    Dim pos As Long
+    Dim Pos As Long
     Dim posStart As Long
     Dim posEnd As Long
     Dim Ptr As Long
@@ -5688,17 +5685,17 @@ Private Function getCommonForm_Login(srcForm As Long, dstForm As Long) As String
     '
     loginAction = main.RefreshQueryString
     loginForm = main.GetFormLogin
-    pos = InStrRev(loginForm, "action=", , vbTextCompare)
-    Do While (Ptr < 10) And (pos <> 0)
-        pos = pos + 1
-        posStart = InStr(pos, loginForm, """")
+    Pos = InStrRev(loginForm, "action=", , vbTextCompare)
+    Do While (Ptr < 10) And (Pos <> 0)
+        Pos = Pos + 1
+        posStart = InStr(Pos, loginForm, """")
         If posStart > 0 Then
             posEnd = InStr(posStart + 1, loginForm, """")
             If posEnd > 0 Then
                 loginForm = Mid(loginForm, 1, posStart - 1) & """?" & loginAction & """" & Mid(loginForm, posEnd + 1)
             End If
         End If
-        pos = InStrRev(loginForm, "action=", pos, vbTextCompare)
+        Pos = InStrRev(loginForm, "action=", Pos, vbTextCompare)
         Ptr = Ptr + 1
     Loop
     '
