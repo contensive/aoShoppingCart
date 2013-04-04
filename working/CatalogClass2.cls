@@ -116,7 +116,7 @@ Public Sub Init(MainPointer As Object)
     
     On Error GoTo ErrorTrap
     '
-    Dim copy As String
+    Dim Copy As String
     Dim Pricing As New CmrcPricingClass
     Dim common As New commonClass
     
@@ -463,7 +463,7 @@ Private Function GetCatalog2_ListingForm_GetRow_NextRecord(CSPointer As Long, Ro
     Dim TestFilename As String
     Dim CatalogAllowOrdering As Boolean
     Dim Filename As String
-    Dim copy As String
+    Dim Copy As String
     Dim itemName As String
     Dim itemId As Long
     Dim ThumbnailFilename As String
@@ -564,6 +564,7 @@ Private Function GetCatalog2_ListingForm_GetRow_NextRecord(CSPointer As Long, Ro
                     ' Image Column
                     '
 Dim altSizeFound As Boolean
+Dim listFix As String
                     If ThumbnailFilename <> "" Then
                         '
                         ' item contains a thumbnail image, use the correct size
@@ -574,18 +575,38 @@ Dim altSizeFound As Boolean
                         imgWidth = RowDescriptor.CatalogThumbnailWidth
                         altSizeFound = False
                         If (altThumbSizeList <> "") And (InStr(1, altThumbSizeList, imgWidth & "x") <> 0) Then
-                            'If InStr(1, altThumbSizeList, ",") <> 0 Then
-                                sizArr = Split(altThumbSizeList, ",")
-                                For sizPtr = 0 To UBound(sizArr)
+                            sizArr = Split(altThumbSizeList, ",")
+                            For sizPtr = 0 To UBound(sizArr)
+                                If (InStr(1, listFix, sizArr(sizPtr)) <= 0) Then
+                                    '
+                                    ' not repeat, add to fix list and check it
+                                    '
+                                    listFix = listFix & "," & sizArr(sizPtr)
                                     If InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0 Then
                                         ThumbnailFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
                                         altSizeFound = True
-                                        Exit For
+                                        'Exit For
                                     End If
-                                Next
-                            'Else
-                            '    ThumbnailFilename = Replace(baseFilename, fileExt, "-" & altThumbSizeList & fileExt)
-                            'End If
+                                End If
+                            Next
+                            If listFix <> "" Then
+                                listFix = Mid(listFix, 2)
+                            End If
+                            If listFix <> altThumbSizeList Then
+                                Call main.SetCS(CSPointer, "altThumbSizeList", listFix)
+                            End If
+'                            'If InStr(1, altThumbSizeList, ",") <> 0 Then
+'                                sizArr = Split(altThumbSizeList, ",")
+'                                For sizPtr = 0 To UBound(sizArr)
+'                                    If InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0 Then
+'                                        ThumbnailFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
+'                                        altSizeFound = True
+'                                        Exit For
+'                                    End If
+'                                Next
+'                            'Else
+'                            '    ThumbnailFilename = Replace(baseFilename, fileExt, "-" & altThumbSizeList & fileExt)
+'                            'End If
                         End If
                         If Not altSizeFound Then
                             ThumbnailFilename = getResizedImage(baseFilename, CStr(RowDescriptor.CatalogThumbnailWidth), CSPointer, "altThumbSizeList")
@@ -609,18 +630,39 @@ Dim altSizeFound As Boolean
                         imgWidth = RowDescriptor.CatalogThumbnailWidth
                         altSizeFound = False
                         If (altSizeList <> "") And (InStr(1, altSizeList, imgWidth & "x") <> 0) Then
-                            'If InStr(1, altSizeList, ",") <> 0 Then
-                                sizArr = Split(altSizeList, ",")
-                                For sizPtr = 0 To UBound(sizArr)
-                                    If InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0 Then
+                            sizArr = Split(altSizeList, ",")
+                            For sizPtr = 0 To UBound(sizArr)
+                                If (InStr(1, listFix, sizArr(sizPtr)) <= 0) Then
+                                    '
+                                    ' not repeat, add to fix list and check it
+                                    '
+                                    listFix = listFix & "," & sizArr(sizPtr)
+                                    If (Not altSizeFound) And (InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0) Then
                                         imageFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
                                         altSizeFound = True
-                                        Exit For
+                                        'WidthKnown = True
+                                        'Exit For
                                     End If
-                                Next
-                            'Else
-                            '    ImageFilename = Replace(baseFilename, fileExt, "-" & altSizeList & fileExt)
-                            'End If
+                                End If
+                            Next
+                            If listFix <> "" Then
+                                listFix = Mid(listFix, 2)
+                            End If
+                            If listFix <> altSizeList Then
+                                Call main.SetCS(CSPointer, "altSizeList", listFix)
+                            End If
+'                            'If InStr(1, altSizeList, ",") <> 0 Then
+'                                sizArr = Split(altSizeList, ",")
+'                                For sizPtr = 0 To UBound(sizArr)
+'                                    If InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0 Then
+'                                        imageFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
+'                                        altSizeFound = True
+'                                        Exit For
+'                                    End If
+'                                Next
+'                            'Else
+'                            '    ImageFilename = Replace(baseFilename, fileExt, "-" & altSizeList & fileExt)
+'                            'End If
                         End If
                         If Not altSizeFound Then
                             imageFilename = getResizedImage(baseFilename, CStr(RowDescriptor.CatalogThumbnailWidth), CSPointer, "altSizeList")
@@ -681,26 +723,26 @@ Dim altSizeFound As Boolean
                             CellCopy = CellCopy & "<br>made by " & OrganizationName
                             End If
                         End If
-                    copy = ""
-                    copy = main.GetCS(CSPointer, "OverView") & main.GetCS(CSPointer, "BriefFilename")
-                    If (copy = "<P>&nbsp;</p>") Or (copy = "<P>&nbsp;</p><P>&nbsp;</p>") Then
-                        copy = ""
+                    Copy = ""
+                    Copy = main.GetCS(CSPointer, "OverView") & main.GetCS(CSPointer, "BriefFilename")
+                    If (Copy = "<P>&nbsp;</p>") Or (Copy = "<P>&nbsp;</p><P>&nbsp;</p>") Then
+                        Copy = ""
                     End If
-                    If copy <> "" Then
-                        If InStr(1, copy, "<P", vbTextCompare) = 0 Then
-                            copy = "<P>" & copy & "</p>"
+                    If Copy <> "" Then
+                        If InStr(1, Copy, "<P", vbTextCompare) = 0 Then
+                            Copy = "<P>" & Copy & "</p>"
                         End If
                     End If
-                    If copy = "" Then
+                    If Copy = "" Then
                         NewLineTag = "<BR><BR>"
                     Else
                         NewLineTag = ""
-                        CellCopy = CellCopy & copy
+                        CellCopy = CellCopy & Copy
                     End If
                     '
-                    copy = (main.GetCSText(CSPointer, "ItemNumber"))
-                    If copy <> "" Then
-                        CellCopy = CellCopy & "<BR>Item # " & copy
+                    Copy = (main.GetCSText(CSPointer, "ItemNumber"))
+                    If Copy <> "" Then
+                        CellCopy = CellCopy & "<BR>Item # " & Copy
                     End If
                     '
 'Dim options() As String
@@ -730,9 +772,9 @@ Dim altSizeFound As Boolean
 '                        CellCopy = CellCopy & "<BR>Option " & copy
 '                    End If
 '                    '
-                    copy = (main.GetCSText(CSPointer, "UPC"))
-                    If copy <> "" Then
-                        CellCopy = CellCopy & "<BR>UPC " & copy
+                    Copy = (main.GetCSText(CSPointer, "UPC"))
+                    If Copy <> "" Then
+                        CellCopy = CellCopy & "<BR>UPC " & Copy
                     End If
                     '
                     If RowDescriptor.CatalogAllowInventory Then
@@ -891,7 +933,7 @@ Private Function GetCatalog2_ListingForm(ItemContentName As String, CategoryCont
     Dim CatalogAllowMfg As Boolean
     Dim s As String
     Dim SearchCaption As String
-    Dim copy As String
+    Dim Copy As String
     Dim CellPtr As Long
     Dim CellWidth As String
     Dim SubID As Long
@@ -1174,7 +1216,7 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
     Dim itemDescription As String
     Dim ItemBrief As String
     Dim SQL As String
-    Dim copy As String
+    Dim Copy As String
     Dim StatusOK As Boolean
     Dim CopyFilename As String
     Dim QuantityOnHand As Long
@@ -1201,7 +1243,7 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
     Dim RowPtr As Long
     Dim OptionArgs() As String
     Dim OptionRow As String
-    Dim pos As Long
+    Dim Pos As Long
     Dim OptionCell As String
     Dim CheckScript As String
     Dim RowDescriptor As RowDescriptorType
@@ -1250,8 +1292,8 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
             Call main.SetMetaContent(ItemContentID, itemId)
             cs = main.OpenCSContent("Meta Content", "(ContentID=" & ItemContentID & ")and(RecordID=" & itemId & ")", , , , , "Name")
             If main.IsCSOK(cs) Then
-                copy = main.GetCSText(cs, "Name")
-                If copy = "" Then
+                Copy = main.GetCSText(cs, "Name")
+                If Copy = "" Then
                     If itemName <> "" Then
                         Call main.AddPageTitle(kmaEncodeHTML(itemName))
                     End If
@@ -1287,8 +1329,8 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
             '
             ' ----- Item name
             '
-            If copy <> "" Then
-                Cell = Cell & "<div><B>" & copy & "</B></div>"
+            If Copy <> "" Then
+                Cell = Cell & "<div><B>" & Copy & "</B></div>"
             End If
             '
             ' ----- Left Cell, Thumbnail
@@ -1301,16 +1343,16 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
             '
             ' ----- Item CopyFilename
             '
-            copy = itemDescription
-            If copy = "" Then
-                copy = ItemBrief
-                If copy = "" Then
-                    copy = "" _
+            Copy = itemDescription
+            If Copy = "" Then
+                Copy = ItemBrief
+                If Copy = "" Then
+                    Copy = "" _
                         & "" _
                         & "<div>No description is available</div>"
                 End If
             End If
-            Cell = Cell & copy
+            Cell = Cell & Copy
             '
             ' ----- Pricing info
             '
@@ -1319,9 +1361,9 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
                 PricingCell = PricingCell & "<div>Item # " & ItemNumber & "</div>"
             End If
             '
-            copy = (main.GetCSText(CSPointer, "UPC"))
-            If copy <> "" Then
-                PricingCell = PricingCell & "<div>UPC " & copy & "</div>"
+            Copy = (main.GetCSText(CSPointer, "UPC"))
+            If Copy <> "" Then
+                PricingCell = PricingCell & "<div>UPC " & Copy & "</div>"
             End If
             '
             CatalogAllowInventory = kmaEncodeBoolean(main.GetSiteProperty("CatalogAllowInventory", "false"))
@@ -1379,7 +1421,9 @@ Dim altSizeFound As Boolean
 Dim imageFilename As String
 Dim TestFilename As String
 Dim WidthKnown As Boolean
+Dim listFix As String
             baseFilename = main.GetCSText(CSPointer, "ImageFilename")
+            altSizeList = main.GetCS(CSPointer, "altSizeList")
             If baseFilename <> "" Then
                 WidthKnown = False
                 Filename = baseFilename
@@ -1389,13 +1433,25 @@ Dim WidthKnown As Boolean
                 If (altSizeList <> "") And (InStr(1, altSizeList, imgWidth & "x") <> 0) Then
                     sizArr = Split(altSizeList, ",")
                     For sizPtr = 0 To UBound(sizArr)
-                        If InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0 Then
-                            imageFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
-                            altSizeFound = True
-                            WidthKnown = True
-                            Exit For
+                        If (InStr(1, listFix, sizArr(sizPtr)) <= 0) Then
+                            '
+                            ' not repeat, add to fix list and check it
+                            '
+                            listFix = listFix & "," & sizArr(sizPtr)
+                            If (Not altSizeFound) And (InStr(1, sizArr(sizPtr), imgWidth & "x") <> 0) Then
+                                imageFilename = Replace(baseFilename, fileExt, "-" & sizArr(sizPtr) & fileExt)
+                                altSizeFound = True
+                                WidthKnown = True
+                                'Exit For
+                            End If
                         End If
                     Next
+                    If listFix <> "" Then
+                        listFix = Mid(listFix, 2)
+                    End If
+                    If listFix <> altSizeList Then
+                        Call main.SetCS(CSPointer, "altSizeList", listFix)
+                    End If
                 End If
                 If Not altSizeFound Then
                     imageFilename = getResizedImage(baseFilename, CStr(imgWidth), CSPointer, "altSizeList")
@@ -1644,7 +1700,7 @@ Friend Function GetCatalog2_SearchForm(ItemContentName As String, CategoryConten
     '
     Dim SQL As String
     Dim cs As Long
-    Dim copy As String
+    Dim Copy As String
     Dim RecordID As Long
     Dim SelectedFound As Boolean
     Dim qs As String
@@ -1698,14 +1754,14 @@ Friend Function GetCatalog2_SearchForm(ItemContentName As String, CategoryConten
                     SelectedFound = False
                     Do While main.IsCSOK(cs)
                         RecordID = (main.GetCSInteger(cs, "ID"))
-                        copy = (main.GetCSText(cs, "name"))
-                        copy = main.EncodeContent(copy, CommerceAccountMemberID)
+                        Copy = (main.GetCSText(cs, "name"))
+                        Copy = main.EncodeContent(Copy, CommerceAccountMemberID)
                         s = s & (vbLf & "<option value=""" & RecordID & """ ")
                         If RecordID = SearchManufacturerID Then
                             s = s & ("selected")
                             SelectedFound = True
                         End If
-                        s = s & (">" & copy & "</option>")
+                        s = s & (">" & Copy & "</option>")
                         main.NextCSRecord (cs)
                     Loop
                     If Not SelectedFound Then
@@ -1810,10 +1866,10 @@ Friend Function GetCatalog2(srcShopFormId As Long, dstShopFormId As Long) As Str
     Dim s As String
     Dim qs As String
     Dim Menu As String
-    Dim body As String
+    Dim Body As String
     Dim categoryList As String
     Dim isEditing As Boolean
-    Dim copy As New CmrcCopyClass
+    Dim Copy As New CmrcCopyClass
     '
     Const ItemContentName = "items"
     Const CategoryContentName = "item categories"
@@ -1830,12 +1886,12 @@ Friend Function GetCatalog2(srcShopFormId As Long, dstShopFormId As Long) As Str
         '
         Select Case dstShopFormId
             Case shopFormCatalogListing, shopFormCatalogDetails
-                body = body & GetCatalog2_ListingForm(ItemContentName, CategoryContentName, SearchCategoryID)
+                Body = Body & GetCatalog2_ListingForm(ItemContentName, CategoryContentName, SearchCategoryID)
             Case shopFormCatalogSearch
-                body = body & GetCatalog2_SearchForm(ItemContentName, CategoryContentName)
+                Body = Body & GetCatalog2_SearchForm(ItemContentName, CategoryContentName)
             Case Else
-                body = body _
-                    & copy.GetCopy(main, shopCopyNameCatalogHome, shopCopyDefaultCatalogHome) _
+                Body = Body _
+                    & Copy.GetCopy(main, shopCopyNameCatalogHome, shopCopyDefaultCatalogHome) _
                     & GetCatalog2_ListingForm(ItemContentName, CategoryContentName, SearchCategoryID)
         End Select
         '
@@ -1843,8 +1899,8 @@ Friend Function GetCatalog2(srcShopFormId As Long, dstShopFormId As Long) As Str
         '
         categoryList = getCategoryList(isEditing)
         If categoryList <> "" Then
-            body = "" _
-                & body _
+            Body = "" _
+                & Body _
                 & categoryList _
                 & ""
         End If
@@ -1859,7 +1915,7 @@ Friend Function GetCatalog2(srcShopFormId As Long, dstShopFormId As Long) As Str
         GetCatalog2 = "" _
             & Menu _
             & vbCrLf & vbTab & "<div class=""ccCatBody"">" _
-            & kmaIndent(body) _
+            & kmaIndent(Body) _
             & vbCrLf & vbTab & "</div>" _
             & ""
 '        '
@@ -2163,7 +2219,7 @@ Private Sub GetOptionCell(OptionList As String, ByRef OptionCell As String, ByRe
     Dim OptionRows() As String
     Dim RowPtr As Long
     Dim OptionRow As String
-    Dim pos As Long
+    Dim Pos As Long
     '
     optionCnt = 0
     If OptionList <> "" Then
@@ -2173,14 +2229,14 @@ Private Sub GetOptionCell(OptionList As String, ByRef OptionCell As String, ByRe
         For RowPtr = 0 To UBound(OptionRows)
             OptionRow = Trim(OptionRows(RowPtr))
             If OptionRow <> "" Then
-                pos = InStr(1, OptionRow, ":")
-                If pos < 2 Then
+                Pos = InStr(1, OptionRow, ":")
+                If Pos < 2 Then
                     OptionRowCaption = "Options"
                     OptionRowList = OptionRow
                 Else
-                    OptionRowCaption = Mid(OptionRow, 1, pos - 1)
+                    OptionRowCaption = Mid(OptionRow, 1, Pos - 1)
                     'OptionRowCaption = Replace(OptionRowCaption, " ", "&nbsp;")
-                    OptionRowList = Mid(OptionRow, pos + 1)
+                    OptionRowList = Mid(OptionRow, Pos + 1)
                 End If
                 '
                 OptionSelect = "" _
@@ -2239,7 +2295,7 @@ Private Function GetRowDescriptor() As RowDescriptorType
             .CatalogThumbnailWidth = 100
             Call main.SetSiteProperty("CatalogThumbnailWidth", .CatalogThumbnailWidth, True)
         End If
-        .CatalogImageWidth = kmaEncodeInteger(main.GetSiteProperty("CatalogImageWidth", 100))
+        .CatalogImageWidth = kmaEncodeInteger(main.GetSiteProperty("CatalogImageWidth", 400))
         If .CatalogImageWidth = 0 Then
             .CatalogImageWidth = 100
             Call main.SetSiteProperty("CatalogImageWidth", .CatalogImageWidth, True)
