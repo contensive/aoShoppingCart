@@ -5413,6 +5413,7 @@ Private Function getShipPriceUPS(serviceCode, curWeight As String, curZip As Str
     Dim respArr() As String
     Dim upsPrice As String
     Dim rateChart As String
+    Dim zip5 As String
         
     Select Case main.GetSiteProperty("ShippingDropOff")
         Case 1
@@ -5426,13 +5427,21 @@ Private Function getShipPriceUPS(serviceCode, curWeight As String, curZip As Str
         Case Else
             rateChart = "Customer%20Counter"
     End Select
+    zip5 = curZip
+    zip5 = Replace(zip5, " ", "")
+    zip5 = Replace(zip5, ",", "")
+    zip5 = Replace(zip5, "-", "")
+    zip5 = Replace(zip5, ".", "")
+    If (Len(zip5) > 5) Then
+        zip5 = Left(zip5, 5)
+    End If
         
     'appURL = "http://www.ups.com/using/services/rave/qcost_dss.cgi?AppVersion=1.2&AcceptUPSLicenseAgreement=YES&ResponseType=application/x-ups-rss&ActionCode=3&RateChart=Regular%20Daily%20Pickup&ResidentialInd=yes&PackagingType=00&"
     appURL = "http://www.ups.com/using/services/rave/qcost_dss.cgi?AppVersion=1.2&AcceptUPSLicenseAgreement=YES&ResponseType=application/x-ups-rss&ActionCode=3&RateChart=" & rateChart & "&ResidentialInd=yes&PackagingType=00&"
     appURL = appURL & "ServiceLevelCode=" & serviceCode
     appURL = appURL & "&ShipperPostalCode=" & main.GetSiteProperty("ShippingOriginatingZip")
     appURL = appURL & "&14_origCountry=" & getCountryAbbreviation(main.GetSiteProperty("ShippingOriginatingCountry"))
-    appURL = appURL & "&ConsigneePostalCode=" & curZip
+    appURL = appURL & "&ConsigneePostalCode=" & zip5
     appURL = appURL & "&ConsigneeCountry=" & getCountryAbbreviation(curCountry)
     appURL = appURL & "&PackageActualWeight=" & curWeight
 
@@ -5658,7 +5667,7 @@ Private Function getCommonForm_Login(srcForm As Long, dstForm As Long) As String
     Dim loginForm As String
     Dim loginAction As String
     Dim Pos As Long
-    Dim posStart As Long
+    Dim PosStart As Long
     Dim posEnd As Long
     Dim Ptr As Long
     '
@@ -5688,11 +5697,11 @@ Private Function getCommonForm_Login(srcForm As Long, dstForm As Long) As String
     Pos = InStrRev(loginForm, "action=", , vbTextCompare)
     Do While (Ptr < 10) And (Pos <> 0)
         Pos = Pos + 1
-        posStart = InStr(Pos, loginForm, """")
-        If posStart > 0 Then
-            posEnd = InStr(posStart + 1, loginForm, """")
+        PosStart = InStr(Pos, loginForm, """")
+        If PosStart > 0 Then
+            posEnd = InStr(PosStart + 1, loginForm, """")
             If posEnd > 0 Then
-                loginForm = Mid(loginForm, 1, posStart - 1) & """?" & loginAction & """" & Mid(loginForm, posEnd + 1)
+                loginForm = Mid(loginForm, 1, PosStart - 1) & """?" & loginAction & """" & Mid(loginForm, posEnd + 1)
             End If
         End If
         Pos = InStrRev(loginForm, "action=", Pos, vbTextCompare)
