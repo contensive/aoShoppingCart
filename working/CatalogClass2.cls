@@ -1338,7 +1338,7 @@ Private Function GetCatalog2_DetailsForm(itemId As Long, ItemContentName As Stri
             Filename = (main.GetCSText(CSPointer, "Thumbnailfilename"))
             If Filename <> "" Then
                 ThumbnailWidth = kmaEncodeInteger(main.GetSiteProperty("CatalogThumbnailWidth", 100))
-                Cell = Cell & "<a href=#Image><img border=0 align=left src=""http://" & main.ServerHost & main.serverFilePath & Filename & """ border=""0"" style=""margin: 10px;"" width=" & ThumbnailWidth & "></a>"
+                Cell = Cell & "<a href=#Image><img border=0 align=left src=""https://" & main.ServerHost & main.serverFilePath & Filename & """ border=""0"" style=""margin: 10px;"" width=" & ThumbnailWidth & "></a>"
             End If
             '
             ' ----- Item CopyFilename
